@@ -8,6 +8,7 @@ namespace JustAnotherToDoList.Model
 		private string _name = "";
 		private string _description = "";
 		private bool _isComplete;
+		public Dictionary<int, ToDoListItemSubGoalModel> SubGoals;
 
 		public bool IsComplete
 		{
@@ -32,11 +33,17 @@ namespace JustAnotherToDoList.Model
 
         public ToDoListItemModel(string name,string description)
         {
-			Id = ToDoListModel.TotalItemsAdded+1;
+			Id = ToDoListModel.TotalItemsAdded;
 			Name = name;
 			Description = description;
 			IsComplete = false;
+			SubGoals = new();
         }
+
+		public void AddSubGoal(ToDoListItemSubGoalModel subGoal)
+		{
+			SubGoals.Add(subGoal.Id, subGoal);
+		}
 
     }
 }

@@ -11,7 +11,7 @@ namespace JustAnotherToDoList.Model
 
         public static int TotalItemsAdded
         {
-            get { return _totalItemsAdded; }
+            get { return ++_totalItemsAdded; }
             private set { _totalItemsAdded = value; }
         }
 
@@ -20,7 +20,6 @@ namespace JustAnotherToDoList.Model
         public static void AddItem(ToDoListItemModel itemAdded)
         {
             ToDoListItems.Add(itemAdded.Id, itemAdded);
-            _totalItemsAdded++;
             SaveList();
         }
 

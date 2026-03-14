@@ -1,7 +1,62 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Just Another To Do App</PageTitle>
 
-<h1>Hello, world!</h1>
+<table style="width:1000px; margin:0 auto;" data-bs-theme="dark ">
+	@foreach (var ToDoItem in ToDoListModel.ToDoListItems)
+	{
+		<tr>
+			<td>
+				<div class="input-group">
+					<div class="input-group-text">
+						<InputCheckbox @bind-Value="ToDoItem.Value.IsComplete" data-bs-theme="dark"
+									   @bind-Value:after="ToDoListModel.SaveList"></InputCheckbox>
+					</div>
+					<div class="form-floating" style="flex:0 0 500px">
+						<InputText class="form-control" aria-label="Text input with checkbox" style="flex:0 0 500px; height:auto"
+								   id="@($"FloatingName{ToDoItem.Value.Id}")" placeholder=""
+								   @bind-Value="ToDoItem.Value.Name" data-bs-theme="dark"
+								   @bind-Value:after="ToDoListModel.SaveList"></InputText>
+						<label for="floatingInput">Name</label>
+					</div>
+					
+				</div>
+			</td>
+			<td>
+				
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="form-floating mb-3">
+					<InputTextArea class="form-control mb-3" style="margin-left:38px;width:1000px;height:100px"
+								   id="@($"FloatingDescription{ToDoItem.Value.Id}")" placeholder=""
+								   @bind-Value="ToDoItem.Value.Description" data-bs-theme="dark"
+								   @bind-Value:after="ToDoListModel.SaveList"></InputTextArea>
+					<label style="margin-left:38px;" for="floatingInput">Description</label>
+				</div>
+				
+			</td>
+		</tr>
+	}
 
-Welcome to your new app.
+	<button class="btn btn-outline-primary" @onclick="additem">add item</button>
+	<tr>
+		<td>
+			<div style="height:100px">
+
+			</div>
+		</td>
+	</tr>
+</table>
+
+
+
+@code{
+	public void additem()
+	{
+		ToDoListItemModel temp = new ToDoListItemModel("temp name", "temp description");
+		ToDoListModel.AddItem(temp);
+	}
+}
